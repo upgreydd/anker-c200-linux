@@ -5,7 +5,9 @@
 package main
 
 import (
+	_ "embed"
 	"errors"
+	"fmt"
 	"image"
 	"os"
 	"time"
@@ -23,13 +25,23 @@ import (
 // version is set at release build time via -ldflags "-X main.version=..."
 var version = "dev"
 
+//go:embed packaging/anker-c200.svg
+var iconSVG []byte
+
 func main() {
 	fixedPath := "" // with an explicit node we never search; after a replug the node may change
 	if len(os.Args) > 1 {
+		if os.Args[1] == "--version" {
+			fmt.Println("anker-c200", version)
+			return
+		}
 		fixedPath = os.Args[1]
 	}
-	a := app.NewWithID("local.anker-c200")
-	win := a.NewWindow("Anker PowerConf C200 " + version)
+	// the ID matches the .desktop file name (Wayland app_id); the constant title is the
+	// X11 WM_CLASS GLFW derives, matched by StartupWMClass
+	a := app.NewWithID("io.github.upgreydd.anker-c200")
+	a.SetIcon(fyne.NewStaticResource("anker-c200.svg", iconSVG))
+	win := a.NewWindow("Anker PowerConf C200")
 	preview := canvas.NewImageFromImage(image.NewYCbCr(image.Rect(0, 0, previewW, previewH), image.YCbCrSubsampleRatio422))
 	preview.FillMode = canvas.ImageFillContain
 	preview.SetMinSize(fyne.NewSize(previewW, previewH))

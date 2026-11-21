@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=Anker C200 Settings
+GenericName=Webcam Settings
+Comment=Live preview and settings for the Anker PowerConf C200 webcam
+Exec=anker-c200
+Icon=anker-c200
+Terminal=false
+Categories=Settings;HardwareSettings;
+Keywords=webcam;camera;anker;powerconf;c200;field of view;microphone;
+StartupWMClass=Anker PowerConf C200

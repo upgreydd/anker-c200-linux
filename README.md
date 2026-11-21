@@ -17,7 +17,7 @@ After every change the UI re-reads all controls from the camera. A manual contro
 
 ## Install
 
-**Arch Linux (AUR):** `yay -S anker-c200` (or any AUR helper).
+**Arch Linux (AUR):** `yay -S anker-c200` (or any AUR helper). This also adds *Anker C200 Settings* to the application menu.
 
 **Binary:** download it from [Releases](https://github.com/upgreydd/anker-c200-linux/releases).
 
