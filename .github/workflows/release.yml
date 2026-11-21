@@ -1,0 +1,51 @@
+name: Release
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: read
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # create the GitHub release
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-go@d8cbb8045d7f43706b9177cceb36c1f91a6644d5 # v7.1.0
+        with:
+          go-version-file: go.mod
+      - name: Fyne build deps
+        run: sudo apt-get update && sudo apt-get install -y gcc libgl1-mesa-dev xorg-dev libxkbcommon-dev libwayland-dev wayland-protocols
+      - run: go test ./...
+      - name: Build
+        run: |
+          mkdir -p dist
+          go build -trimpath -ldflags "-s -w -X main.version=${GITHUB_REF_NAME}" -o dist/anker-c200 .
+          tar -C dist -czf "dist/anker-c200-${GITHUB_REF_NAME}-linux-amd64.tar.gz" anker-c200
+          (cd dist && sha256sum *.tar.gz > SHA256SUMS)
+      - name: Publish
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" dist/*.tar.gz dist/SHA256SUMS --generate-notes --verify-tag
+
+  aur:
+    needs: release
+    runs-on: ubuntu-latest
+    # enable with repo variable AUR_PUBLISH=true once secret AUR_SSH_PRIVATE_KEY is set
+    if: ${{ vars.AUR_PUBLISH == 'true' }}
+    environment: aur # secret lives in this environment, limited to v* tags
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Set pkgver from tag
+        run: sed -i "s/^pkgver=.*/pkgver=${GITHUB_REF_NAME#v}/; s/^pkgrel=.*/pkgrel=1/" packaging/aur/PKGBUILD
+      - uses: KSXGitHub/github-actions-deploy-aur@084b0d9b15415bf9cdb65d44dad1efe37a354050 # v4.2.0
+        with:
+          pkgname: anker-c200
+          pkgbuild: packaging/aur/PKGBUILD
+          updpkgsums: true
+          commit_username: upgreydd
+          commit_email: kacper@kacperadler.info
+          ssh_private_key: ${{ secrets.AUR_SSH_PRIVATE_KEY }}
+          commit_message: Update to ${{ github.ref_name }}
