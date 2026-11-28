@@ -62,8 +62,8 @@ github.com/srwiley/rasterx v0.0.0-20220730225603-2ab79fcdd4ef h1:Ch6Q+AZUxDBCVqd
 github.com/srwiley/rasterx v0.0.0-20220730225603-2ab79fcdd4ef/go.mod h1:nXTWP6+gD5+LUJ8krVhhoeHjvHTutPxMYl5SvkcnJNE=
 github.com/stretchr/testify v1.11.1 h1:7s2iGBzp5EwR7/aIZr8ao5+dra3wiQyKjjFuvgVKu7U=
 github.com/stretchr/testify v1.11.1/go.mod h1:wZwfW3scLgRK+23gO65QZefKpKQRnfz6sD981Nm4B6U=
-github.com/vladimirvivien/go4vl v0.6.2 h1:IJIc/EGTcxYI0araNr8nUnvCKx/nmYJ5fCV1piuUo1Y=
-github.com/vladimirvivien/go4vl v0.6.2/go.mod h1:iWUNl4OswQ/oekJXIS6S8MN5inoPOsbpF3m4azwrzsA=
+github.com/vladimirvivien/go4vl v0.7.4 h1:9QOjezUWwnKFyrI2VAr4G9JEID/2P5Yy+Tt8TgUePPQ=
+github.com/vladimirvivien/go4vl v0.7.4/go.mod h1:p95O+D2s5F7W9aPUPSRZE172ku65/bqx+JWugrfRXhE=
 github.com/yuin/goldmark v1.8.2 h1:kEGpgqJXdgbkhcOgBxkC0X0PmoPG1ZyoZ117rDVp4zE=
 github.com/yuin/goldmark v1.8.2/go.mod h1:ip/1k0VRfGynBgxOz0yCqHrbZXhcjxyuS66Brc7iBKg=
 golang.org/x/image v0.24.0 h1:AN7zRgVsbvmTfNyqIbbOraYL8mSwcKncEj8ofjgzcMQ=
