@@ -3,7 +3,7 @@ module github.com/upgreydd/anker-c200-linux
 go 1.27.4
 
 require (
-	fyne.io/fyne/v2 v2.8.2
+	fyne.io/fyne/v2 v2.8.3
 	github.com/vladimirvivien/go4vl v0.6.2
 	golang.org/x/sys v0.50.0
 )
